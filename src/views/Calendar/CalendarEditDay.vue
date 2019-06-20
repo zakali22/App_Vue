@@ -11,16 +11,15 @@
 
 <script>
 export default {
-    data(){
-        return {
-            newEvent: ''
-        }
-    },
-    methods: {
-        saveEdit(){
-            this.$emit("confirmEdit", this.newEvent)
-        }
+  data () {
+    return {
+      newEvent: ''
     }
+  },
+  methods: {
+    saveEdit () {
+      this.$emit('confirmEdit', this.newEvent)
+    }
+  }
 }
 </script>
-

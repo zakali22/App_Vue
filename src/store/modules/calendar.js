@@ -1,139 +1,149 @@
-function initialState(){
-    return {
-        week: [
-            {
-                name: 'Mon',
-                longName: 'Monday',
-                events: [
-                    { details: 'Get Groceries', edit: false},
-                    { details: 'Carpool', edit: false}
-                ],
-                active: true
-            },
-            {
-                name: 'Tue',
-                longName: 'Tuesday',
-                events: [
-                ],
-                active: false
-            },
-            {
-                name: 'Wed',
-                longName: 'Wednesday',
-                events: [
-                ],
-                active: false
-            },
-            {
-                name: 'Thurs',
-                longName: 'Thursday',
-                events: [
-                ],
-                active: false
-            },
-            {
-                name: 'Fri',
-                longName: 'Friday',
-                events: [
-                ],
-                active: false
-            },
-            {
-                name: 'Sat',
-                longName: 'Saturday',
-                events: [
-                ],
-                active: false
-            },
-            {
-                name: 'Sun',
-                longName: 'Sunday',
-                events: [
-                ],
-                active: false
-            }
-        ]
-    }
+/* eslint-disable no-self-assign */
+/* eslint-disable space-before-blocks */
+function initialState (){
+  return {
+    week: [
+      {
+        name: 'Mon',
+        longName: 'Monday',
+        events: [
+          { details: 'Get Groceries', edit: false, type: 'work' },
+          { details: 'Carpool', edit: false, type: 'personal' }
+        ],
+        active: true
+      },
+      {
+        name: 'Tue',
+        longName: 'Tuesday',
+        events: [
+        ],
+        active: false
+      },
+      {
+        name: 'Wed',
+        longName: 'Wednesday',
+        events: [
+        ],
+        active: false
+      },
+      {
+        name: 'Thurs',
+        longName: 'Thursday',
+        events: [
+        ],
+        active: false
+      },
+      {
+        name: 'Fri',
+        longName: 'Friday',
+        events: [
+        ],
+        active: false
+      },
+      {
+        name: 'Sat',
+        longName: 'Saturday',
+        events: [
+        ],
+        active: false
+      },
+      {
+        name: 'Sun',
+        longName: 'Sunday',
+        events: [
+        ],
+        active: false
+      }
+    ]
+  }
 }
 
 const getters = {
-    getActiveDay: state => {
-        const {week} = state;
-        return week.find(day => {
-            return day.active === true
-        })
-    },
-    getAllDays: state => {
-        return state.week
-    }
+  getActiveDay: state => {
+    const { week } = state
+    return week.find(day => {
+      return day.active === true
+    })
+  },
+  getAllDays: state => {
+    return state.week
+  }
 }
 
 const actions = {
-    setActiveDay: ({commit, state}, payload) => {
-        const {index} = payload;
-        commit('setDayToActive', index)
-    },
-    setEditActive: ({commit, state}, payload) => {
-        commit('setEditEventActive', payload);
-    },
-    editEvent: ({commit, state}, payload) => {
-        commit('editEventOnDay', payload)
-    },
-    deleteEvent: ({commit, state}, payload) => {
-        commit('deleteEventOnDay', payload)
-    }
+  setActiveDay: ({ commit, state }, payload) => {
+    const { index } = payload
+    commit('setDayToActive', index)
+  },
+  setEditActive: ({ commit, state }, payload) => {
+    commit('setEditEventActive', payload)
+  },
+  editEvent: ({ commit, state }, payload) => {
+    commit('editEventOnDay', payload)
+  },
+  deleteEvent: ({ commit, state }, payload) => {
+    commit('deleteEventOnDay', payload)
+  },
+  addEvent: ({ commit, state }, payload) => {
+    console.log(payload)
+    commit('addEventToDay', payload)
+  }
 }
 
 const mutations = {
-    setDayToActive: (state, dayIndex) => {
-        const {week} = state;
-        week.forEach((day, index) => {
-            if(index === dayIndex){
-                console.log(day)
-                day.active = true
-            } else {
-                console.log(day)
-                day.active = false
-            }
-        })
-    },
-    setEditEventActive: (state, payload) => {
-        const {week} = state;
-        const {dayIndex, eventIndex} = payload;
+  addEventToDay: (state, payload) => {
+    const { week } = state
+    const { details, type, edit, day } = payload
+    const newEvent = { details, type, edit }
+    const findDay = week.find(dayEl => {
+      return dayEl.name === day
+    })
+    findDay.events.push(newEvent)
+  },
+  setDayToActive: (state, dayIndex) => {
+    const { week } = state
+    week.forEach((day, index) => {
+      if (index === dayIndex){
+        console.log(day)
+        day.active = true
+      } else {
+        console.log(day)
+        day.active = false
+      }
+    })
+  },
+  setEditEventActive: (state, payload) => {
+    const { week } = state
+    const { dayIndex, eventIndex } = payload
 
-        week[dayIndex].events.forEach((event, index) => {
-            if(index === eventIndex){
-                event.edit = true;
-            } else {
-                event.edit = false;
-            }
-        })
-    },
-    editEventOnDay: (state, payload) => {
-        const {dayIndex, eventIndex, newEvent} = payload;    
-        const {week} = state;
-        if(newEvent.length > 0){
-            week[dayIndex].events[eventIndex].details = newEvent;
-        } else {
-            week[dayIndex].events[eventIndex].details = week[dayIndex].events[eventIndex].details;
-        }
-        week[dayIndex].events[eventIndex].edit = false;
-    },
-    deleteEventOnDay: (state, payload) => {
-        const {dayIndex, eventIndex} = payload;
-        const {week} = state;
-
-        week[dayIndex].events.splice(eventIndex, 1);
+    week[dayIndex].events.forEach((event, index) => {
+      if (index === eventIndex){
+        event.edit = true
+      } else {
+        event.edit = false
+      }
+    })
+  },
+  editEventOnDay: (state, payload) => {
+    const { dayIndex, eventIndex, newEvent } = payload
+    const { week } = state
+    if (newEvent.length > 0){
+      week[dayIndex].events[eventIndex].details = newEvent
+    } else {
+      week[dayIndex].events[eventIndex].details = week[dayIndex].events[eventIndex].details
     }
+    week[dayIndex].events[eventIndex].edit = false
+  },
+  deleteEventOnDay: (state, payload) => {
+    const { dayIndex, eventIndex } = payload
+    const { week } = state
+
+    week[dayIndex].events.splice(eventIndex, 1)
+  }
 }
-
-
-
-
-
 export default {
-    state: initialState,
-    actions,
-    getters,
-    mutations
+  state: initialState,
+  actions,
+  getters,
+  mutations
 }

@@ -24,9 +24,9 @@
 
 <script>
 export default {
-    props: {
-        card: Object,
-        incrementVote: Function
-    }
+  props: {
+    card: Object,
+    incrementVote: Function
+  }
 }
 </script>

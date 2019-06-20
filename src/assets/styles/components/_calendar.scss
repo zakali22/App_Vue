@@ -93,7 +93,7 @@
     }
     &__event {
         margin-top: 70px;
-        border: 1px solid lightcoral;
+        border: 3px solid lightcoral;
         border-radius: 5px;
         min-width: 30%;
         padding: 18px;
@@ -118,10 +118,12 @@
             }
             button {
                 border-radius: 10px;
-                background: coral;
+                background: lightcoral;
                 border: none;
                 color: white;
-                padding: 7px 0;
+                padding: 10px;
+                align-self: flex-start;
+                margin-top: 7px;
             }
         }
         &--options {

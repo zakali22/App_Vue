@@ -35,4 +35,4 @@ export const Submissions = [
     avatar: '#d4b02f',
     icon: 'fas fa-tasks'
   }
-];
+]
