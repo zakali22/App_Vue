@@ -5,7 +5,7 @@
             <label for="event">
                 <p>Enter a new event</p>
                 <input id="event" v-model="newEvent.title"/>
-                <p v-if="newEvent.title.length === 0">Event must not be empty</p>
+                <p v-if="errors.exists && errors.title && newEvent.title.length === 0" class="errors">Event must not be empty</p>
             </label>
             <div class="calendar__event--options">
                 <label for="work">
@@ -21,8 +21,8 @@
                     <input type="radio" id="social" v-model="newEvent.eventType" value="social"/>
                 </label>
             </div>
+            <p v-if="errors.exists && errors.eventType && newEvent.eventType.length === 0" class="errors">Please select a type</p>
             <button @click.prevent="addNewEvent" >Add Event</button>
-    
         </form>
     </div>
 </template>
@@ -36,7 +36,12 @@ export default {
         title: '',
         eventType: ''
       },
-      activeDay: ''
+      activeDay: '',
+      errors: {
+        exists: false, 
+        title: '',
+        eventType: ''
+      }
     }
   },
   computed: {
@@ -50,16 +55,27 @@ export default {
     ]),
     addNewEvent () {
       console.log('Done')
-      const payload = {
-        details: this.newEvent.title,
-        type: this.newEvent.eventType,
-        edit: false,
-        day: this.activeDay.name
-      }
-      this.$store.dispatch('addEvent', payload)
-      this.newEvent = {
-        title: '',
-        eventType: ''
+      if(this.newEvent.title.length > 0 && this.newEvent.eventType.length > 0){
+        const payload = {
+          details: this.newEvent.title,
+          type: this.newEvent.eventType,
+          edit: false,
+          day: this.activeDay.name
+        }
+        this.$store.dispatch('addEvent', payload)
+        this.newEvent = {
+          title: '',
+          eventType: ''
+        } 
+        return;
+      } else {
+        this.errors.exists = true
+        if(this.newEvent.title.length === 0){
+          this.errors.title = true
+        } 
+        if(this.newEvent.eventType.length === 0){
+          this.errors.eventType = true
+        }
       }
     }
   },
@@ -74,3 +90,11 @@ export default {
   }
 }
 </script>
+
+<style>
+.errors {
+  color: red;
+  font-size: 14px;
+  margin-top: 7px;
+}
+</style>

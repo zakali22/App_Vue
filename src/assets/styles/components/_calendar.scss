@@ -1,4 +1,5 @@
 .calendar {
+    margin-top: 40px;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -6,63 +7,67 @@
     align-items: center;
     font-family: 'Ubuntu', sans-serif;
     font-weight: 100;
+    padding: 0 10px;
 
     &__container {
         display: flex;
-        min-width: 90%;
-        min-height: 20vh;
-        border: 1px solid green;
-        background: #474747;
+        min-width: 100%;
+        min-height: 28vh;
+        background: white;
         &--day {
             flex: 1;
             display: flex;
             flex-direction: column;
-            border-right: 1px solid white;
+            border-right: 1px solid lightgrey;
+            border-top: 1px solid lightgrey;
             position: relative;
-            &__header, &__event {
-                display: flex;
-                justify-content: center;
+            &:first-of-type {
+                border-left: 1px solid lightgrey;
             }
             &__header {
-                background: $darkgrey;;
-                color: white;
+                padding-top: 10px;
+                text-align: center;
                 text-transform: uppercase;
-                padding: 10px 0;
-                h4 {
-                    font-weight: 100;
-                }
+                font-size: 14px;
+                font-family: 'Lato', sans-serif;
+                margin-bottom: 20px;
             }
             &__event {
-                background: lightcoral;
-                color: $darkgrey;
-                margin: 15px 11px;
-                font-size: 17px;
-                padding: 5px 0;
-                flex-direction: column;
+                border-radius: 20px;
+                margin: 9px 5px;
+                display: flex;
                 align-items: center;
+                justify-content: center;
+                padding: 15px 10px;
+                p {
+                    margin-right: auto;
+                }
                 .edits {
-                    align-self: stretch;
-                    display: flex;
-                    justify-content: center;
-                    padding: 10px 0;
+                    font-size: 12px;
+                    & > *:not(:last-child){
+                        margin-right: 10px;
+                    }
                     & > * {
                         cursor: pointer;
-                    }
-                    & > *:first-child {
-                        margin-right: 10px;
+                        padding: 10px;
+                        border-radius: 100%;
                     }
                 }
             }
             &__add {
                 align-self: center;
                 position: absolute;
-                bottom: -35px;
+                bottom: -75px;
                 background: none;
                 border: none;
                 cursor: pointer;
                 outline: none;
                 i {
                     font-size: 20px;
+                    color: white;
+                    background: #4fe3a4;
+                    padding: 10px;
+                    border-radius: 100%;
                 }
             }
             &__edit {
@@ -72,8 +77,9 @@
                     align-items: center;
                     input {
                         border-radius: 10px;
-                        border: none;
+                        border: 1px solid grey;
                         padding: 5px 8px;
+                        outline: none;
                     }
                     button {
                         border: none;
@@ -92,11 +98,11 @@
 
     }
     &__event {
-        margin-top: 70px;
-        border: 3px solid lightcoral;
-        border-radius: 5px;
+        margin-top: 130px;
+        border: 3px solid #4fe3a4;
+        border-radius: 25px;
         min-width: 30%;
-        padding: 18px;
+        padding: 30px 18px;
         display: flex;
         flex-direction: column;
         h2 {
@@ -118,12 +124,14 @@
             }
             button {
                 border-radius: 10px;
-                background: lightcoral;
+                background: #4fe3a4;
                 border: none;
                 color: white;
                 padding: 10px;
                 align-self: flex-start;
                 margin-top: 7px;
+                cursor: pointer;
+                outline: none;
             }
         }
         &--options {

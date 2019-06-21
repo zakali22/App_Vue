@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import VotingApp from './views/Voting/VotingApp.vue'
 import CalendarApp from './views/Calendar/CalendarApp.vue'
+import ShoppingApp from './views/Shopping/ShoppingApp.vue'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/calendar_app',
       name: 'calendar_app',
       component: CalendarApp
+    },
+    {
+      path: '/shopping_app',
+      name: 'shopping_app',
+      component: ShoppingApp
     }
   ]
 })
